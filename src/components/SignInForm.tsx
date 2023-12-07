@@ -1,4 +1,3 @@
-import { navigate } from "astro:transitions/client";
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import condo from "../assests/condo.png";
 
@@ -8,17 +7,16 @@ const SignInForm = () => {
     password: "",
   });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const response = await fetch("/api/users", {
-      method: "POST",
-      body: JSON.stringify(formData),
-    });
-    const data = await response.json();
-    console.log("Form submitted response:", data);
-    navigate("/");
-  };
+  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const response = await fetch("/api/users", {
+  //     method: "POST",
+  //     body: JSON.stringify(formData),
+  //   });
+  //   const data = await response.json();
+  //   console.log("Form submitted response:", data);
+  //   navigate("/");
+  // };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -26,6 +24,7 @@ const SignInForm = () => {
       ...prevFormData,
       [name]: value,
     }));
+    console.log("formData", formData);
   };
 
   return (

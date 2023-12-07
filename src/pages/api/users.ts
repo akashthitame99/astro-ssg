@@ -11,3 +11,4 @@ export const GET: APIRoute = async () => {
         { status: 200 }
     )
 }
+

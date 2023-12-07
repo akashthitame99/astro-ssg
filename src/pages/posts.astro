@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const posts = await fetch("http://localhost:4321/api/posts")
+const posts = await fetch(`${Astro.url.origin}/api/posts`)
   .then((response) => response.json())
   .catch((err) => {
     console.log("err", err);
@@ -11,7 +11,7 @@ const posts = await fetch("http://localhost:4321/api/posts")
 <Layout>
   <h3 class="flex text-center justify-center">Dynamic Posts</h3>
   {
-    posts?.posts.map((post: any) => {
+    posts?.posts?.map((post: any) => {
       return (
         <div
           style={{ borderRadius: "4px" }}
