@@ -1,11 +1,10 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
-const users = await fetch("http://0.0.0.0:8083/api/users")
-  .then((response) => response.json())
-  .catch((err) => {
-    console.log("err", err);
-  });
-console.log("users", users);
+// const users = await fetch("http://0.0.0.0:8083/api/users")
+//   .then((response) => response.json())
+//   .catch((err) => {
+//     console.log("err", err);
+//   });
 ---
 
 <Layout
