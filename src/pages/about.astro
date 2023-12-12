@@ -1,20 +1,13 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
 import avatarIcon from "../assests/avatar.svg";
+import { type User } from "../models/UserModel";
 
-const users = await fetch("http://0.0.0.0:8083/api/users")
+const users = await fetch("http://localhost:8083/api/users")
   .then((response) => response.json())
   .catch((err) => {
     console.log("err", err);
   });
-
-interface User {
-  name: string;
-  id: number;
-  address?: string;
-  email: string;
-  age: number;
-}
 ---
 
 <Layout

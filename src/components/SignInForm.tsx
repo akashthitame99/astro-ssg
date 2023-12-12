@@ -1,3 +1,4 @@
+import { navigate } from "astro:transitions/client";
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import condo from "../assests/condo.png";
 
@@ -7,16 +8,17 @@ const SignInForm = () => {
     password: "",
   });
 
-  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const response = await fetch("/api/users", {
-  //     method: "POST",
-  //     body: JSON.stringify(formData),
-  //   });
-  //   const data = await response.json();
-  //   console.log("Form submitted response:", data);
-  //   navigate("/");
-  // };
+  const handleSubmit = async () => {
+    // e.preventDefault();
+
+    const response = await fetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    console.log("Form submitted response:", data);
+    navigate("/");
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -24,7 +26,6 @@ const SignInForm = () => {
       ...prevFormData,
       [name]: value,
     }));
-    console.log("formData", formData);
   };
 
   return (
@@ -81,12 +82,12 @@ const SignInForm = () => {
                   </a>
                 </div>
                 <div className="flex flex-col items-center justify-center">
-                  <a
-                    href={"/"}
+                  <button
+                    onClick={handleSubmit}
                     className=" text-white  border border-gray-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                   >
                     Sign in
-                  </a>
+                  </button>
                 </div>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}

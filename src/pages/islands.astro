@@ -1,0 +1,12 @@
+---
+import UserList from "../components/UserList";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <UserList client:load client="load" />
+  <UserList client:idle client="idle" />
+  <UserList client:only client="Only" />
+  <UserList client:media="(min-width: 900px)" client="Media" />
+  <UserList client:visible client="Visible" />
+</Layout>
