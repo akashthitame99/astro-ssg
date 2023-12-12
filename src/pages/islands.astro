@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
+  <UserList client="Island" />
   <UserList client:load client="load" />
   <UserList client:idle client="idle" />
   <UserList client:only client="Only" />
