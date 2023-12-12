@@ -13,7 +13,7 @@ const UserList = ({ client }: Props) => {
   useEffect(() => {
     const fetchUsers = async () => {
       axios
-        .get("http://localhost:8083/api/users")
+        .get("http://amoldevops.xyz:8083/api/users")
         .then(function (response) {
           setUsers(response.data);
           console.log(response);
