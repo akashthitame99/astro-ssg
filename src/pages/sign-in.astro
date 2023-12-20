@@ -1,7 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import SignInForm from "../components/SignInForm";
 import { SITE_DESCRIPTION } from "../consts";
+import SignInForm from "../components/auth/SignInForm";
 ---
 
 <!doctype html>
@@ -10,6 +10,6 @@ import { SITE_DESCRIPTION } from "../consts";
     <BaseHead title={"Sign-In"} description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <SignInForm />
+    <SignInForm client:load />
   </body>
 </html>

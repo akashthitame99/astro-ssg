@@ -3,6 +3,7 @@ import Layout from "../layouts/BlogPost.astro";
 import avatarIcon from "../assests/avatar.svg";
 import { type User } from "../models/UserModel";
 
+export const prerender = true;
 const users = await fetch("http://localhost:8083/api/users")
   .then((response) => response.json())
   .catch((err) => {

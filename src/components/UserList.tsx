@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { User } from "../models/UserModel";
 import avatarIcon from "../assests/avatar.svg";
 import axios from "axios";
+import { isAuthenticated, oktaAuth } from "../oktaConfig";
+import { navigate } from "astro:transitions/client";
 
 interface Props {
   client: string;
@@ -11,17 +13,28 @@ const UserList = ({ client }: Props) => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
+    const validate = async () => {
+      const validated = await isAuthenticated();
+      if (!validated) {
+        navigate("/sign-in");
+      } else {
+        // const user = await oktaAuth.getUser();
+        // console.log("user", user);
+      }
+    };
+    validate();
+
     const fetchUsers = async () => {
       axios
-        .get("http://amoldevops.xyz:8083/api/users")
+        .get("http://localhost:8083/api/users")
         .then(function (response) {
           setUsers(response.data);
-          console.log(response);
         })
         .catch(function (error) {
           console.log(error);
         });
     };
+
     fetchUsers();
   }, []);
 
@@ -36,7 +49,9 @@ const UserList = ({ client }: Props) => {
         <div key={user.id} className="flex justify-center mb-3">
           <img src={avatarIcon.src} alt="Avatar" className="h-12 w-12" />
           <div className="flex flex-col items-start mt-2">
-            <span>{user?.name}</span>
+            <span>
+              {user?.name} {user.last_name}
+            </span>
             <span className="text-sm">{user.email}</span>
             <span>{user?.address}</span>
           </div>

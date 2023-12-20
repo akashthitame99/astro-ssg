@@ -1,7 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+export const prerender = true;
 
-const posts = await fetch(`${Astro.url.origin}/api/posts`)
+const posts = await fetch(`${import.meta.env.ASTRO_APP_URL}/api/posts`)
   .then((response) => response.json())
   .catch((err) => {
     console.log("err", err);
@@ -13,10 +14,7 @@ const posts = await fetch(`${Astro.url.origin}/api/posts`)
   {
     posts?.posts?.map((post: any) => {
       return (
-        <div
-          style={{ borderRadius: "4px" }}
-          class="mb-2 p-2 bg-gray-200 hover:bg-gray-400"
-        >
+        <div class="mb-2 p-2 rounded-md bg-gray-200 hover:bg-gray-400">
           <h5>
             <span class="pr-1">{post?.id}.</span>
             {post?.title}

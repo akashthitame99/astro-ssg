@@ -1,13 +1,20 @@
 ---
 import UserList from "../components/UserList";
 import Layout from "../layouts/Layout.astro";
+import { isAuthenticated, oktaAuth } from "../oktaConfig";
+export const prerender = true;
+
+const session = await oktaAuth.session.get();
+console.log("session", session);
+const isAuthenticatedd = await isAuthenticated();
+console.log("isAuthenticatedd", isAuthenticatedd);
 ---
 
 <Layout>
-  <UserList client="Island" />
+  <!-- <UserList client="Island" /> -->
   <UserList client:load client="load" />
-  <UserList client:idle client="idle" />
+  <!-- <UserList client:idle client="idle" />
   <UserList client:only client="Only" />
   <UserList client:media="(min-width: 900px)" client="Media" />
-  <UserList client:visible client="Visible" />
+  <UserList client:visible client="Visible" /> -->
 </Layout>

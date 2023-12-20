@@ -1,6 +1,7 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import condo from "../assests/condo.png";
+import AuthLink from "../components/auth/AuthLink";
 ---
 
 <header class="bg-gray-900">
@@ -12,12 +13,13 @@ import condo from "../assests/condo.png";
     </h2>
     <div class="internal-links">
       <HeaderLink href="/">Home</HeaderLink>
+      <HeaderLink href="/images">Images</HeaderLink>
       <HeaderLink href="/blog">Blog</HeaderLink>
       <HeaderLink href="/posts">Post</HeaderLink>
       <HeaderLink href="/islands">Is-land</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
+      <HeaderLink href="/signin">About</HeaderLink>
     </div>
-    <HeaderLink href="/sign-in">Sign-In</HeaderLink>
+    <AuthLink client:load />
   </nav>
 </header>
 <style>

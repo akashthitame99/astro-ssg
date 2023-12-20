@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+export const prerender = true;
+const images = await fetch("https://jsonplaceholder.typicode.com/photos")
+  .then((response) => response.json())
+  .catch((err) => {
+    console.log("err", err);
+  });
+---
+
+<Layout>
+  <div>Images</div>
+  {
+    images.map((img: any) => {
+      return (
+        <div class="flex bg-slate-500 p-4 m-8 rounded-md">
+          <img src={img.url} alt="" height={200} width={200} />
+          <div class="flex flex-col ml-1">
+            {img.id}
+            <span>{img.title}</span>
+          </div>
+        </div>
+      );
+    })
+  }
+</Layout>
