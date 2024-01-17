@@ -1,5 +1,7 @@
 ---
+import UserForm from "../components/UserForm";
 import UserList from "../components/UserList";
+import UserTable from "../components/UserTable";
 import Layout from "../layouts/Layout.astro";
 import { isAuthenticated, oktaAuth } from "../oktaConfig";
 export const prerender = true;
@@ -7,12 +9,23 @@ export const prerender = true;
 const session = await oktaAuth.session.get();
 console.log("session", session);
 const isAuthenticatedd = await isAuthenticated();
-console.log("isAuthenticatedd", isAuthenticatedd);
+
+// console.log("isAuthenticatedd", isAuthenticatedd);
+// const data = await fetch(`${import.meta.env.ASTRO_APP_URL}/api/sample`)
+//   .then((response) => response.json())
+//   .catch((err) => {
+//     console.log("err", err);
+//   });
 ---
 
 <Layout>
+  <div>
+    <!-- {JSON.stringify(data)} -->
+  </div>
+  <UserForm client:load />
+  <UserTable client:load />
   <!-- <UserList client="Island" /> -->
-  <UserList client:load client="load" />
+  <!-- <UserList client:load client="load" /> -->
   <!-- <UserList client:idle client="idle" />
   <UserList client:only client="Only" />
   <UserList client:media="(min-width: 900px)" client="Media" />

@@ -1,0 +1,58 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+export const prerender = true;
+export async function getStaticPaths({ paginate }) {
+  const images = await fetch("https://jsonplaceholder.typicode.com/photos")
+    .then((response) => response.json())
+    .catch((err) => {
+      console.log("err", err);
+    });
+  const mapImages = images.map((image: any) => ({
+    params: { image: image.id },
+    props: { image },
+  }));
+
+  return paginate(mapImages, { pageSize: 5 });
+}
+const { page } = Astro.props;
+---
+
+<Layout>
+  <div class="text-center">Images</div>
+  {
+    page?.data?.map((img: any) => {
+      return (
+        <div class="flex bg-slate-500 p-4 m-8 rounded-md">
+          <img src={img.props.image.url} alt="" height={200} width={200} />
+          <div class="flex flex-col ml-1">
+            {img.props.image.id}
+            <span>{img.props.image.title}</span>
+          </div>
+        </div>
+      );
+    })
+  }
+  <div class="flex items-center justify-center gap-3">
+    {
+      page.url.prev && (
+        <a
+          class="bg-slate-700 p-2 text-gray-50 rounded-md w-24 text-center hover:text-white"
+          href={page.url.prev}
+        >
+          Previous
+        </a>
+      )
+    }
+    {
+      page.url.next && (
+        <a
+          class="bg-slate-700 p-2 text-gray-50 rounded-md w-24 text-center hover:text-white"
+          href={page.url.next}
+        >
+          Next
+        </a>
+      )
+    }
+  </div>
+</Layout>

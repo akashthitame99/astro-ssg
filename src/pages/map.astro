@@ -1,0 +1,14 @@
+---
+import MapBox from "../components/MapBox";
+import ReactMapBox from "../components/ReactMapBox";
+import ClusterMapBox from "../components/ClusterMapBox";
+
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <MapBox client:only />
+  <!-- <ClusterMapBox client:visible /> -->
+
+  <!-- <ReactMapBox client:only /> -->
+</Layout>

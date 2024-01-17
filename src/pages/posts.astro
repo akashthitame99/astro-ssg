@@ -1,5 +1,8 @@
 ---
+import { useStore } from "@nanostores/react";
 import Layout from "../layouts/Layout.astro";
+import { userInfo } from "../store/authStore";
+import type { Store } from "nanostores";
 export const prerender = true;
 
 const posts = await fetch(`${import.meta.env.ASTRO_APP_URL}/api/posts`)
@@ -7,6 +10,8 @@ const posts = await fetch(`${import.meta.env.ASTRO_APP_URL}/api/posts`)
   .catch((err) => {
     console.log("err", err);
   });
+
+console.log("userInfo.value");
 ---
 
 <Layout>

@@ -2,29 +2,48 @@ import { useState } from "react";
 import condo from "../../assests/condo.png";
 import { oktaAuth } from "../../oktaConfig";
 import Toast, { showToast } from "../common/Toast";
+import Button from "../common/Button";
+import { useStore } from "@nanostores/react";
+import { $userInfo } from "../../store/authStore";
 
 const SignInForm = () => {
+  const userInfo = useStore($userInfo);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleSubmit = async () => {
     try {
-      const transaction = await oktaAuth.signInWithCredentials({
-        username: formData.email,
-        password: formData.password,
-      });
+      console.log("userInfo", JSON.parse(userInfo));
+      $userInfo.set(
+        JSON.stringify({
+          username: formData.email,
+          password: formData.password,
+        })
+      );
 
-      if (transaction.status === "SUCCESS") {
-        await oktaAuth.token.getWithRedirect({
-          responseType: ["id_token", "token"],
-          sessionToken: transaction.sessionToken,
-        });
-      } else {
-        showToast("Login Failed, try again !", "error");
-      }
+      setIsLoading(true);
+
+      // const transaction = await oktaAuth.signInWithCredentials({
+      //   username: formData.email,
+      //   password: formData.password,
+      // });
+
+      // if (transaction.status === "SUCCESS") {
+      //   await oktaAuth.token.getWithRedirect({
+      //     responseType: ["id_token", "token"],
+      //     sessionToken: transaction.sessionToken,
+      //   });
+      // } else {
+      //   showToast("Login Failed, try again !", "error");
+      // }
+      setIsLoading(false);
     } catch (err) {
       console.error("Login Failed:", err);
+      setIsLoading(false);
       showToast("Login Failed, try again !", "error");
     }
   };
@@ -89,13 +108,13 @@ const SignInForm = () => {
                 </div>
               </form>
               <div className="flex flex-col items-center justify-center">
-                <button
-                  // type="submit"
+                <Button
+                  loading={isLoading}
                   onClick={handleSubmit}
-                  className=" text-white  border border-gray-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  // className=" text-white  border border-gray-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Sign in
-                </button>
+                </Button>
               </div>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
